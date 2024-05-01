@@ -105,13 +105,10 @@ class World:
             self.player.x -= self.move_x
         if key[pygame.K_d] == True and not self.right_col:
             self.player.x += self.move_x
-            self.move_right = True
         if key[pygame.K_w] == True and not self.up_col:
             self.player.y -= self.move_y
-            self.move_up = True
         if key[pygame.K_s] == True and not self.down_col:
             self.player.y += self.move_y
-            self.move_down = True
 
         self.collision()
         self.show_collision()
