@@ -14,6 +14,12 @@ class World:
         self.move_y = 5
         self.move_x = 5
 
+        #Collisions
+        self.left_col = False
+        self.right_col = False
+        self.up_col = False
+        self.down_col = False
+
 
 
     def draw_rects(self, y_axis): #Rects that the player collides with
@@ -31,19 +37,29 @@ class World:
         
         for self.target_rect in self.targets:
             #X collision Right
-            if self.targets.collidelist(self.player.x + self.move_x, self.player.y , 50,50) >= 0:
-                self.player.x -= 1 
+            if self.targets[0].colliderect(self.player.x + self.move_x, self.player.y , 50,50):
+                self.right_col = True
+            else:
+                self.right_col = False
+
+            
             #X collision left
-            if self.targets.collidelist(self.player.x - self.move_x, self.player.y , 50,50) >= 0:
-                self.player.x += 1
+            if self.targets[0].colliderect(self.player.x - self.move_x, self.player.y , 50,50):
+                self.left_col = True
+            else:
+                self.left_col = False
 
             #Y collision Bottom
-            if self.targets.collidelist(self.player.x, self.player.y + self.move_y, 50,50) >= 0:
-                self.player.y -= 1
+            if self.targets[0].colliderect(self.player.x, self.player.y + self.move_y, 50,50):
+                self.down_col = True
+            else:
+                self.down_col = False
 
             #Y collision Top
-            if self.targets.collidelist(self.player.x, self.player.y - self.move_y, 50,50) >= 0:
-                self.player.y += 1
+            if self.targets[0].colliderect(self.player.x, self.player.y - self.move_y, 50,50):
+                self.up_col = True
+            else:
+                self.up_col = False
 
                 
 
@@ -67,13 +83,16 @@ class World:
 
         key = pygame.key.get_pressed()
 
-        if key[pygame.K_a] == True:
+        if key[pygame.K_a] == True and not self.left_col:
             self.player.x -= self.move_x
-        if key[pygame.K_d] == True:
+        if key[pygame.K_d] == True and not self.right_col:
             self.player.x += self.move_x
-        if key[pygame.K_w] == True:
+            self.move_right = True
+        if key[pygame.K_w] == True and not self.up_col:
             self.player.y -= self.move_y
-        if key[pygame.K_s] == True:
+            self.move_up = True
+        if key[pygame.K_s] == True and not self.down_col:
             self.player.y += self.move_y
+            self.move_down = True
 
         self.collision()
