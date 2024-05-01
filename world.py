@@ -35,13 +35,12 @@ class World:
     def collision(self):
         
         for self.target_rect in self.targets:
-            #X collision Right
+            # X collision Right
             if self.targets[0].colliderect(self.player.x + self.move_x, self.player.y , 50,50):
                 self.right_col = True
             else:
                 self.right_col = False
 
-            
             #X collision left
             if self.targets[0].colliderect(self.player.x - self.move_x, self.player.y , 50,50):
                 self.left_col = True
@@ -87,18 +86,19 @@ class World:
         self.display_surface.fill('grey')
 
         pygame.draw.rect(self.display_surface, self.player_colour, self.player)
+        
         #Collision
-
-        if self.player.collidelist(self.targets) >= 0:
-            self.player_colour = 'green'
-        else:
-            self.player_colour = 'red'
+        # if self.player.collidelist(self.targets) >= 0:
+        #     self.player_colour = 'green'
+        # else:
+        #     self.player_colour = 'red'
 
 
         #Draw Rectangles
         self.draw_rects(180)
 
 
+        #user input
         key = pygame.key.get_pressed()
 
         if key[pygame.K_a] == True and not self.left_col:
