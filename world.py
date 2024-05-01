@@ -8,7 +8,6 @@ class World:
         self.player = pygame.Rect(270,180,50,50)
         self.player_colour = 'red'
         self.block_colour = 'blue'
-
         self.targets = []
 
         self.move_y = 5
@@ -61,7 +60,26 @@ class World:
             else:
                 self.up_col = False
 
-                
+
+    #shows where the collision occurs
+    def show_collision(self):
+
+        if self.right_col:
+            right_col = pygame.Rect(self.player.x + 40, self.player.y + 5, 10,40)
+            pygame.draw.rect(self.display_surface, 'yellow', right_col)
+
+        if self.left_col:
+            right_col = pygame.Rect(self.player.x, self.player.y + 5, 10,40)
+            pygame.draw.rect(self.display_surface, 'yellow', right_col)
+
+        if self.up_col:
+            right_col = pygame.Rect(self.player.x + 5, self.player.y, 40,10)
+            pygame.draw.rect(self.display_surface, 'yellow', right_col)
+
+        if self.down_col:
+            right_col = pygame.Rect(self.player.x + 5, self.player.y + 45, 40,10)
+            pygame.draw.rect(self.display_surface, 'yellow', right_col)
+
 
         
 
@@ -96,3 +114,4 @@ class World:
             self.move_down = True
 
         self.collision()
+        self.show_collision()
